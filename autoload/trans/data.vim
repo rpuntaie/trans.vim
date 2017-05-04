@@ -11,27 +11,34 @@ set cpo-=C
 
 " Google API (web page) "{{{1
 " No key for oauth version
-" URL: http://translate.google.com/translate_a/t?client=firefox-a&langpair=auto|zh-cn&ie=UTF-8&oe=UTF-8&text=HELLO
-" {"sentences":[{"trans":"HELLO","orig":"HELLO","translit":"HELLO","src_translit":""}],"dict":[{"pos":"感叹词","terms":["喂"],"entry":[{"word":"喂","reverse_translation":["hello","hey"],"score":0.0087879393}]}],"src":"en","server_time":28}
+" URL: https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ru&dt=t&q=Hello
+" [[["Здравствуйте","Hello",null,null,1]],null,"en"]
+" tried with vimrc entries:
+" let g:trans_default_api='google'
+" let g:trans_default_lang='ru'
+" let g:trans_set_reg='*'
+" let g:trans_set_echo=1
+" let g:trans_replace=0
+" let g:trans_has_python=3 "webapi.vim instead
 
 call trans#default("g:trans_api" , {})
 
 let g:trans_api.google = {
-            \'url': 'http://translate.google.com/translate_a/t',
-            \'params' : {
-                    \"client" : 'firefox-a',
-                    \"ie" : 'UTF-8',
-                    \"oe" : 'UTF-8',
-                    \},
-            \'query_str': 'langpair=%FROM%7C%TO&text=%TEXT',
+            \'url': 'https://translate.googleapis.com/translate_a/single',
+            \'params' : {},
+            \'query_str': 'client=gtx&sl=%FROM&tl=%TO&dt=t&q=%TEXT',
             \'parser': 'trans#data#parser_google',
             \'type': 'get',
-            \'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.15 Safari/536.5' },
+            \'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36'}
             \}
 
 fun! trans#data#parser_google(con) "{{{
-    let po = type(a:con) == type({}) ? a:con : eval(a:con)
-    return join(map(po.sentences, 'v:val.trans'), ' ')
+    echo po
+    let po=eval(substitute(a:con,'null','""','g'))
+    while type(po) != type("str")
+        po = po[0]
+    endwhile
+    return po
 endfun "}}}
 
 " Microsoft translator  (need update token) "{{{1
