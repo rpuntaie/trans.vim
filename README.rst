@@ -1,8 +1,9 @@
 :Title: trans.vim
-:Author: Rykka
-:Version: 1.51
-:Github: https://github.com/Rykka/trans.vim
-:Update: 2013-05-17
+:Author: Rykka (now gu-fan)
+:Author: rpuntaie
+:Version: 1.60
+:Github: https://github.com/rpuntaie/trans.vim
+:Update: 2019-07-18
 
 =========
 Trans.vim
@@ -27,32 +28,32 @@ Add replace option by default.
 Installation
 ------------
 
-Requirment: 
+Requirment:
 
-    - Vim compiled with python. (or webapi.vim_)
+    - Vim compiled with python. (or `webapi.vim`_)
 
 Install:
 
-    - Vundle_:
+    - `Vundle`_:
 
       In your vimrc::
-      
+
        Bundle 'Rykka/trans.vim'
        " for no python version
        " Bundle 'mattn/webapi-vim'
-      
-      Then use ``:BundleInstall`` to install. 
+
+      Then use ``:BundleInstall`` to install.
 
 Usage
 -----
 
-``:Trans`` ``<leader>tt`` 
+``:Trans`` ``<leader>tt``
     Translate.
     word under cursor or current visual selection.
 
     e.g. ':Trans hello' will echo ``你好`` and set register ``@"`` to 你好
 
-``:TransTo`` ``<leader>to`` 
+``:TransTo`` ``<leader>to``
     Translate word with input lang code.
 
 
@@ -64,7 +65,7 @@ Usage
     Translate po file.
     [FROM] and [TO] are lang code and can be ommited.
 
-    For a buffer of Po, 
+    For a buffer of Po,
     ``:TransPo`` will fill translate msgid.
 
     Following function included:
@@ -79,11 +80,11 @@ Options
 
 
 ``g:trans_default_api``
-    Translator engine, 'google', 'bing', 'baidu', 'youdao' are valid. 
+    Translator engine, 'google', 'bing', 'baidu', 'youdao' are valid.
 
     default is 'google'.
 
-    see APIS_ for details.
+    see `APIS`_ for details.
 ``g:trans_default_lang``
     Your main language, default is 'zh-CN'
 
@@ -94,7 +95,7 @@ Options
     Mapping for translate to lang code, default is '<leader>to'
 
 ``g:trans_set_reg``
-    The register for you to set. 
+    The register for you to set.
 
     default is '"' means ``@"``.
 
@@ -113,14 +114,14 @@ Options
 ``g:trans_has_python``
     compiled with python or not.
 
-    set it to 0 to disable using python, thus webapi.vim_ is needed.
+    set it to 0 to disable using python, thus `webapi.vim`_ is needed.
 
     default is your python version.
 
 ``g:trans_replace``
 
     replace current words or selection,
-    
+
     default is 1.
 
 APIs
@@ -131,10 +132,10 @@ to use other translators.
 
 Define your own API
   if your API need only 'GET' method, then in your vimrc::
-    
+
     " init default apis
     call trans#data#init()
-    
+
     " API_QUERY_STR is something like 'text=%TEXT&from=%FROM&to=%TO'
     " API_PARSER_FUNC is the name of the function to parse the response content
     " And you can add 'headers' key for specified headers dict
@@ -148,13 +149,13 @@ Define your own API
 
     fun! API_PARSER_FUNC(content)
         " parse content here.
-        return a:content 
+        return a:content
     endfun
 
 
 Then you can use it with ``let g:trans_default_api = 'YOUR_API'``,
 
-or ``:call trans#request('YOUR_API',text,from,to)`` 
+or ``:call trans#request('YOUR_API',text,from,to)``
 
 You can see the built-in APIs for references.
 
@@ -165,7 +166,7 @@ This is the web API. Which may violate the term of google translator.
 
 No oauth API added as that needs billing.
 
-:: 
+::
 
     let g:trans_api.google = {
         \'url': 'http://translate.google.com/translate_a/t',
@@ -189,10 +190,10 @@ Use your key as the built-in key have limit of 2000000 char per month.
 
 Get your key for oauth_obj:
 
-1. create the live account live_
-2. get the client_id (customer ID) at datamarket_ 
-3. get the client_secret at developer_ (create a app with client_id)
-4. Active microsoft translator API at translator_data_
+1. create the live account `live`_
+2. get the client_id (customer ID) at `datamarket`_
+3. get the client_secret at `developer`_ (create a app with client_id)
+4. Active microsoft translator API at `translator_data`_
 
 ::
 
@@ -217,10 +218,10 @@ Baidu
 
 Only 'en' and 'zh-cn',
 
-Create your key at Baidu-Api_
+Create your key at `Baidu-Api`_
 
-:: 
-    
+::
+
     let g:trans_api.baidu = {
                 \'url': 'http://openapi.baidu.com/public/2.0/bmt/translate',
                 \'query_str' : 'q=%TEXT&from=%FROM&to=%TO',
@@ -228,15 +229,15 @@ Create your key at Baidu-Api_
                 \'params' : {'client_id': 'XrPxmIZ2nq4GgKGMxZmGPM5r'},
                 \'parser' : 'trans#data#parser_baidu',
                 \}
-    
+
 Youdao
 ~~~~~~
 
 Only 'en' and 'zh-cn'
 
-Create a new key at youdao-api_, the default key is limit to 1000 per hour.
+Create a new key at `youdao-api`_, the default key is limit to 1000 per hour.
 
-:: 
+::
 
     let g:trans_api.youdao = {'url': 'http://fanyi.youdao.com/openapi.do',
                 \'query_str' : 'q=%TEXT',
@@ -249,12 +250,16 @@ Create a new key at youdao-api_, the default key is limit to 1000 per hour.
                             \},
                 \'parser' : 'trans#data#parser_youdao',
                 \}
-    
+
 
 
 
 ChangeLog
 ---------
+
+* 1.6
+
+    - doc ``trans.txt`` from ``README.rst``
 
 * 1.5
 
@@ -266,16 +271,12 @@ ChangeLog
 
 
 
-
-.. _webapi.vim: https://github.com/mattn/webapi-vim
-.. _Vundle: https://github.com/gmarik/vundle
-.. _datamarket: https://datamarket.azure.com/account 
 
-.. _live: http://home.live.com/
-
-.. _developer: https://datamarket.azure.com/developer/applications/
-
-.. _translator_data: https://datamarket.azure.com/dataset/bing/microsofttranslator 
-.. _youdao-api: http://fanyi.youdao.com/openapi?path=data-mode
-
-.. _Baidu-Api: http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/%E7%BF%BB%E8%AF%91API
+.. _'webapi.vim': https://github.com/mattn/webapi-vim
+.. _'Vundle': https://github.com/gmarik/vundle
+.. _'datamarket': https://datamarket.azure.com/account
+.. _'live': http://home.live.com/
+.. _'developer': https://datamarket.azure.com/developer/applications/
+.. _'translator_data': https://datamarket.azure.com/dataset/bing/microsofttranslator
+.. _'youdao-api': http://fanyi.youdao.com/openapi?path=data-mode
+.. _'Baidu-Api': http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/%E7%BF%BB%E8%AF%91API
