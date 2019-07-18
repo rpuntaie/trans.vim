@@ -1,13 +1,23 @@
-:Title: trans.vim
-:Author: Rykka (now gu-fan)
-:Author: rpuntaie
-:Version: 1.60
-:Github: https://github.com/rpuntaie/trans.vim
-:Update: 2019-07-18
+		  TRANS.VIM
 
-=========
-Trans.vim
-=========
+Title: trans.vim
+Author: Rykka (now gu-fan), rpuntaie
+Version: 1.60
+Github: `https://github.com/rpuntaie/trans.vim`
+Update: 2019-07-18
+
+ABOUT        |trans-about|
+INSTALLATION |trans-installation|
+USAGE        |trans-usage|
+OPTIONS      |trans-options|
+APIS         |trans-apis|
+GOOGLE       |trans-google|
+BING         |trans-bing|
+BAIDU        |trans-baidu|
+YOUDAO       |trans-youdao|
+
+==============================================================================
+ABOUT                                                            *trans-about*
 
 **Trans.vim** makes translation in vim easier.
 ::
@@ -18,23 +28,17 @@ Trans.vim
     Транс.вим чини превод на вим лакше.
     ...
 
-
-What's New
-----------
-
-Add replace option by default.
-
-
-Installation
-------------
+==============================================================================
+INSTALLATION                                              *trans-installation*
 
 Requirment:
 
-    - Vim compiled with python. (or `webapi.vim`_)
+    - Vim compiled with python. 
+      (or `webapi.vim` `https://github.com/mattn/webapi-vim`
 
 Install:
 
-    - `Vundle`_:
+    - `Vundle` `https://github.com/gmarik/vundle`
 
       In your vimrc::
 
@@ -44,8 +48,8 @@ Install:
 
       Then use ``:BundleInstall`` to install.
 
-Usage
------
+==============================================================================
+USAGE                                                            *trans-usage*
 
 ``:Trans`` ``<leader>tt``
     Translate.
@@ -74,9 +78,8 @@ Usage
         Python format string '%(item)s' will be keeped.
         Multiline string Translation.
 
-
-Options
--------
+==============================================================================
+OPTIONS                                                        *trans-options*
 
 
 ``g:trans_default_api``
@@ -123,9 +126,8 @@ Options
     replace current words or selection,
 
     default is 1.
-
-APIs
-----
+==============================================================================
+APIS                                                              *trans-apis*
 
 There are several built-in APIs, and you can define your own API
 to use other translators.
@@ -159,8 +161,8 @@ or ``:call trans#request('YOUR_API',text,from,to)``
 
 You can see the built-in APIs for references.
 
-Google
-~~~~~~
+------------------------------------------------------------------------------
+GOOGLE                                                          *trans-google*
 
 This is the web API. Which may violate the term of google translator.
 
@@ -181,8 +183,8 @@ No oauth API added as that needs billing.
         \'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.15 Safari/536.5' },
         \}
 
-Bing
-~~~~
+------------------------------------------------------------------------------
+BING                                                              *trans-bing*
 
 It's using microsoft translator API actually.
 
@@ -190,10 +192,15 @@ Use your key as the built-in key have limit of 2000000 char per month.
 
 Get your key for oauth_obj:
 
-1. create the live account `live`_
-2. get the client_id (customer ID) at `datamarket`_
-3. get the client_secret at `developer`_ (create a app with client_id)
-4. Active microsoft translator API at `translator_data`_
+1. create the live account 
+   `live` `http://home.live.com/`
+2. get the client_id (customer ID) at 
+   `datamarket` `https://datamarket.azure.com/account`
+3. get the client_secret at 
+   `developer` `https://datamarket.azure.com/developer/applications/`
+   (create a app with client_id)
+4. Active microsoft translator API at 
+   `translator_data`_ `https://datamarket.azure.com/dataset/bing/microsofttranslator`
 
 ::
 
@@ -213,12 +220,13 @@ Get your key for oauth_obj:
                 \'query_str': 'from=%FROM&to=%TO&text=%TEXT',
                 \}
 
-Baidu
-~~~~~
+------------------------------------------------------------------------------
+BAIDU                                                            *trans-baidu*
 
 Only 'en' and 'zh-cn',
 
-Create your key at `Baidu-Api`_
+Create your key at `Baidu-Api`
+`http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/%E7%BF%BB%E8%AF%91API`
 
 ::
 
@@ -230,12 +238,14 @@ Create your key at `Baidu-Api`_
                 \'parser' : 'trans#data#parser_baidu',
                 \}
 
-Youdao
-~~~~~~
+------------------------------------------------------------------------------
+YOUDAO                                                          *trans-youdao*
 
 Only 'en' and 'zh-cn'
 
-Create a new key at `youdao-api`_, the default key is limit to 1000 per hour.
+Create a new key at 
+`youdao-api` `http://fanyi.youdao.com/openapi?path=data-mode`,
+the default key is limit to 1000 per hour.
 
 ::
 
@@ -251,32 +261,3 @@ Create a new key at `youdao-api`_, the default key is limit to 1000 per hour.
                 \'parser' : 'trans#data#parser_youdao',
                 \}
 
-
-
-
-ChangeLog
----------
-
-* 1.6
-
-    - doc ``trans.txt`` from ``README.rst``
-
-* 1.5
-
-    - Add ``:TransBetween``
-    - Fix the "\"" and "'" and "\n" with python api.
-    - Rewrite TransPo.
-
-      Now work better than auto trans by google translate toolkit.
-
-
-
-
-.. _'webapi.vim': https://github.com/mattn/webapi-vim
-.. _'Vundle': https://github.com/gmarik/vundle
-.. _'datamarket': https://datamarket.azure.com/account
-.. _'live': http://home.live.com/
-.. _'developer': https://datamarket.azure.com/developer/applications/
-.. _'translator_data': https://datamarket.azure.com/dataset/bing/microsofttranslator
-.. _'youdao-api': http://fanyi.youdao.com/openapi?path=data-mode
-.. _'Baidu-Api': http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/%E7%BF%BB%E8%AF%91API
