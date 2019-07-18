@@ -1,4 +1,4 @@
-		  TRANS.VIM
+		  TRANS.VIM                                            *trans*
 
 Title: trans.vim
 Author: Rykka (now gu-fan), rpuntaie
@@ -20,13 +20,14 @@ YOUDAO       |trans-youdao|
 ABOUT                                                            *trans-about*
 
 **Trans.vim** makes translation in vim easier.
-::
 
     Trans.vim使翻译在vim更容易。
     Trans.vimはvimでの変換が容易になります。
     Trans.vim rend la traduction dans vim facile.
     Транс.вим чини превод на вим лакше.
     ...
+
+Note: Test sources other than `google`.
 
 ==============================================================================
 INSTALLATION                                              *trans-installation*
@@ -40,37 +41,37 @@ Install:
 
     - `Vundle` `https://github.com/gmarik/vundle`
 
-      In your vimrc::
+      In your vimrc:
 
        Bundle 'Rykka/trans.vim'
        " for no python version
        " Bundle 'mattn/webapi-vim'
 
-      Then use ``:BundleInstall`` to install.
+      Then use `:BundleInstall` to install.
 
 ==============================================================================
 USAGE                                                            *trans-usage*
 
-``:Trans`` ``<leader>tt``
+`:Trans` `<leader>tt`
     Translate.
     word under cursor or current visual selection.
 
-    e.g. ':Trans hello' will echo ``你好`` and set register ``@"`` to 你好
+    e.g. ':Trans hello' will echo `你好` and set register `@"` to 你好
 
-``:TransTo`` ``<leader>to``
+`:TransTo` `<leader>to`
     Translate word with input lang code.
 
 
-``:TransBetween`` ``<leader>tb``
+`:TransBetween` `<leader>tb`
     Translate with lang code From and To.
 
 
-``:TransPo [[FROM],[TO]]``
+`:TransPo [[FROM],[TO]]`
     Translate po file.
     [FROM] and [TO] are lang code and can be ommited.
 
     For a buffer of Po,
-    ``:TransPo`` will fill translate msgid.
+    `:TransPo` will fill translate msgid.
 
     Following function included:
 
@@ -82,31 +83,31 @@ USAGE                                                            *trans-usage*
 OPTIONS                                                        *trans-options*
 
 
-``g:trans_default_api``
+`g:trans_default_api`
     Translator engine, 'google', 'bing', 'baidu', 'youdao' are valid.
 
     default is 'google'.
 
     see `APIS`_ for details.
-``g:trans_default_lang``
+`g:trans_default_lang`
     Your main language, default is 'zh-CN'
 
-``g:trans_map_trans``
+`g:trans_map_trans`
     Mapping for translate , default is '<leader>tt'
 
-``g:trans_map_to``
+`g:trans_map_to`
     Mapping for translate to lang code, default is '<leader>to'
 
-``g:trans_set_reg``
+`g:trans_set_reg`
     The register for you to set.
 
-    default is '"' means ``@"``.
+    default is '"' means `@"`.
 
-    you can set it to '+' to clip to ``@+``.
+    you can set it to '+' to clip to `@+`.
 
     or you can set it to '_' to ignore it.
 
-``g:trans_set_echo``
+`g:trans_set_echo`
     After translation, echo the result.
 
     set it to 0, to disable it.
@@ -114,14 +115,14 @@ OPTIONS                                                        *trans-options*
     default is 1
 
 
-``g:trans_has_python``
+`g:trans_has_python`
     compiled with python or not.
 
     set it to 0 to disable using python, thus `webapi.vim`_ is needed.
 
     default is your python version.
 
-``g:trans_replace``
+`g:trans_replace`
 
     replace current words or selection,
 
@@ -133,8 +134,9 @@ There are several built-in APIs, and you can define your own API
 to use other translators.
 
 Define your own API
-  if your API need only 'GET' method, then in your vimrc::
+  if your API need only 'GET' method, then in your vimrc:
 
+>
     " init default apis
     call trans#data#init()
 
@@ -153,11 +155,12 @@ Define your own API
         " parse content here.
         return a:content
     endfun
+<
 
 
-Then you can use it with ``let g:trans_default_api = 'YOUR_API'``,
+Then you can use it with `let g:trans_default_api = 'YOUR_API'`,
 
-or ``:call trans#request('YOUR_API',text,from,to)``
+or `:call trans#request('YOUR_API',text,from,to)`
 
 You can see the built-in APIs for references.
 
@@ -168,8 +171,8 @@ This is the web API. Which may violate the term of google translator.
 
 No oauth API added as that needs billing.
 
-::
 
+>
     let g:trans_api.google = {
         \'url': 'http://translate.google.com/translate_a/t',
         \'params' : {
@@ -182,6 +185,7 @@ No oauth API added as that needs billing.
         \'type': 'get',
         \'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.15 Safari/536.5' },
         \}
+<
 
 ------------------------------------------------------------------------------
 BING                                                              *trans-bing*
@@ -202,8 +206,8 @@ Get your key for oauth_obj:
 4. Active microsoft translator API at 
    `translator_data`_ `https://datamarket.azure.com/dataset/bing/microsofttranslator`
 
-::
 
+>
     let g:trans_api.bing = {'url': 'http://api.microsofttranslator.com/v2/ajax.svc/Translate',
                 \'type': 'oauth',
                 \'oauth_url': 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13/',
@@ -219,6 +223,7 @@ Get your key for oauth_obj:
                 \'parser': 'trans#data#parser_bing',
                 \'query_str': 'from=%FROM&to=%TO&text=%TEXT',
                 \}
+<
 
 ------------------------------------------------------------------------------
 BAIDU                                                            *trans-baidu*
@@ -228,8 +233,7 @@ Only 'en' and 'zh-cn',
 Create your key at `Baidu-Api`
 `http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91/%E7%BF%BB%E8%AF%91API`
 
-::
-
+>
     let g:trans_api.baidu = {
                 \'url': 'http://openapi.baidu.com/public/2.0/bmt/translate',
                 \'query_str' : 'q=%TEXT&from=%FROM&to=%TO',
@@ -237,6 +241,7 @@ Create your key at `Baidu-Api`
                 \'params' : {'client_id': 'XrPxmIZ2nq4GgKGMxZmGPM5r'},
                 \'parser' : 'trans#data#parser_baidu',
                 \}
+<
 
 ------------------------------------------------------------------------------
 YOUDAO                                                          *trans-youdao*
@@ -247,8 +252,7 @@ Create a new key at
 `youdao-api` `http://fanyi.youdao.com/openapi?path=data-mode`,
 the default key is limit to 1000 per hour.
 
-::
-
+>
     let g:trans_api.youdao = {'url': 'http://fanyi.youdao.com/openapi.do',
                 \'query_str' : 'q=%TEXT',
                 \'type' : 'get',
@@ -260,4 +264,4 @@ the default key is limit to 1000 per hour.
                             \},
                 \'parser' : 'trans#data#parser_youdao',
                 \}
-
+<

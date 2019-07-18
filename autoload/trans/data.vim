@@ -33,7 +33,8 @@ let g:trans_api.google = {
             \}
 
 fun! trans#data#parser_google(con) "{{{
-    let po = eval(substitute(a:con,'null','""','g'))
+    let po = substitute(a:con,'null','""','g')
+    let po = eval(substitute(po,'\n','','g'))
     while type(po) != type("str")
         let po = po[0]
     endwhile
