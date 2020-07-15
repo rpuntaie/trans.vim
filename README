@@ -19,6 +19,8 @@ YOUDAO       |trans-youdao|
 ==============================================================================
 ABOUT                                                            *trans-about*
 
+Deprecated. Use: https://github.com/echuraev/translate-shell.vim
+
 **Trans.vim** makes translation in vim easier.
 
     Trans.vim使翻译在vim更容易。
